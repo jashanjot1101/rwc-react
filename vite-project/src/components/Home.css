@@ -1,0 +1,140 @@
+/* Home.css - Page-specific styles */
+/* Note: Global color variables are defined in index.css */
+
+/* Re-map Tailwind classes or use explicit colors for consistency */
+/* Use @layer utilities if adding to a main CSS file, but for inline, explicit is fine */
+.bg-black { background-color: var(--bg-primary); }
+/* Assuming bg-darkGray in the markup is intended to be the secondary background */
+.bg-darkGray { background-color: var(--bg-secondary); }
+.text-neonGreen { color: var(--accent-primary); }
+.bg-neonGreen { background-color: var(--accent-primary); }
+.border-neonGreen { border-color: var(--accent-primary); }
+.text-white { color: var(--text-primary); }
+.text-gray-300 { color: var(--text-secondary); } /* Map text-gray-300 to E0E0E0 */
+.text-gray-400 { color: var(--text-muted); }    /* Map text-gray-400 to 808080 */
+
+
+/* --- Animations --- */
+/* Pulse Animation for Buttons */
+@keyframes pulse-custom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); opacity: 0.9; } /* Slightly less aggressive pulse, adds opacity change */
+}
+.animate-pulse-custom {
+   animation: pulse-custom 1.5s infinite ease-in-out;
+}
+
+/* Button Hover Effects */
+.bg-neonGreen {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: background-color, color;
+}
+
+.bg-neonGreen:hover {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+}
+
+.border-neonGreen {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: background-color, color, border-color;
+}
+
+.border-neonGreen:hover {
+  background-color: var(--accent-primary) !important;
+  color: var(--bg-primary) !important;
+  border-width: 2px !important;
+}
+
+/* Service cards stagger effect - only for initial fade-in, not for hover */
+/* We use the fade-up class with inline --delay style for the initial animation */
+
+/* Override the transition for service cards to make hover more responsive */
+.service-card.glass-effect {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform, box-shadow, background-color;
+}
+
+.service-card.glass-effect:hover {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(127, 255, 0, 0.1);
+}
+
+/* --- Testimonial Styles --- */
+
+/* Testimonial Carousel Styles */
+/* Container hides the overflowing cards */
+.testimonial-carousel-container {
+  overflow-x: hidden;
+  padding-top: 10px;
+}
+
+/* The track holds all testimonial cards in a single row */
+.testimonial-carousel-track {
+  display: flex;
+  width: fit-content; /* Allows track to be wider than container */
+  white-space: nowrap; /* Keeps items in one line */
+  animation: scroll-testimonials linear infinite;
+   animation-duration: 40s; /* Adjust duration for speed */
+}
+
+/* Animation keyframes for infinite scrolling */
+@keyframes scroll-testimonials {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); } /* Translates by 1/3rd of the duplicated track */
+}
+
+/* Pause animation on hover */
+.testimonial-carousel-container:hover .testimonial-carousel-track {
+  animation-play-state: paused;
+}
+
+/* Home-specific testimonial card styling */
+.testimonial-card {
+   width: 320px; /* Fixed width */
+   margin-right: 2rem; /* Space between cards */
+   box-sizing: border-box;
+   position: relative; /* Required for ::after positioning */
+   transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+               box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+               border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+   will-change: transform, box-shadow, border-color;
+   backface-visibility: hidden;
+
+   
+    background: radial-gradient(circle at top left, rgba(66, 66, 66, 0.664), transparent 70%);
+    border-color: rgba(127, 255, 0, 0.3);
+    border-radius: 0.75rem; /* Match the rounded-xl class */
+}
+
+.testimonial-card:hover {
+   
+}
+
+/* Add subtle glow effect on hover */
+.testimonial-card::after {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   border-radius: 0.75rem; /* Match the rounded-xl class */
+   background: radial-gradient(circle at bottom right, rgba(66, 66, 66, 0.664), transparent 70%);
+   pointer-events: none;
+   opacity: 0;
+   transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+   will-change: opacity;
+}
+
+.testimonial-card:hover::after {
+   opacity: 1;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .testimonial-carousel-track {
+    scale: 0.8; /* Reduced width for mobile */
+  }
+}

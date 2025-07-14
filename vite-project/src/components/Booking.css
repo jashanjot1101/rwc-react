@@ -1,0 +1,47 @@
+/* src/components/Booking.css */
+
+/* Styling for selected service card */
+.service-select-card {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid;
+  height: auto;
+  will-change: transform, box-shadow, border-color;
+  background: linear-gradient(
+    147deg,
+    rgb(0, 0, 0) 0%,
+    rgb(24, 24, 24) 100%
+  );
+}
+.service-select-card:hover {
+  border: 1px solid #7fff00;
+}
+
+.service-select-card.selected {
+  border: 1px solid #7fff00;
+  box-shadow: 0 0 10px rgba(128, 255, 0, 0.637); /* #7FFF00 with alpha */
+
+  filter: brightness(1.7);
+}
+
+/* The .card-glow for hover is in global styles (index.css/Home.css) */
+
+/* Style for date input icon - browser default, can be tricky to style universally */
+/* This is a best-effort attempt and might look different across browsers */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(80deg)
+    brightness(120%) contrast(90%);
+  cursor: pointer;
+}
+input[type="date"]::-moz-calendar-picker-indicator {
+  /* For Firefox, though less effective */
+  filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(80deg)
+    brightness(120%) contrast(90%);
+  cursor: pointer;
+}
+
+/* Drop shadow for neon text - ensure this matches global definition or define here if needed */
+.drop-shadow-neon {
+  filter: drop-shadow(0 0 3px rgba(127, 255, 0, 0.5));
+}
